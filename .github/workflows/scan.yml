@@ -1,0 +1,31 @@
+name: daily-scan
+on:
+  schedule:
+    - cron: "0 4 * * *"   # 06:00 Israel (winter), 07:00 summer
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths: ["scan.py", "queries.json", ".github/workflows/scan.yml"]
+permissions:
+  contents: write
+concurrency:
+  group: daily-scan
+  cancel-in-progress: false
+jobs:
+  scan:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install -r requirements.txt
+      - run: python scan.py
+      - name: Commit results
+        run: |
+          git config user.name "job-scanner-bot"
+          git config user.email "job-scanner-bot@users.noreply.github.com"
+          git add data/
+          git diff --cached --quiet || git commit -m "scan $(date -u +%F)"
+          git push
