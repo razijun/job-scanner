@@ -70,8 +70,23 @@ def clean_text(html):
     return title, text
 
 
+WARMED = set()
+
+
+def warm_up(site):
+    """Visit the site's home page once so it sets its session cookies (JobMaster hides results without them)."""
+    if site in WARMED:
+        return
+    WARMED.add(site)
+    home = {"jobmaster": "https://www.jobmaster.co.il/", "alljobs": "https://www.alljobs.co.il/",
+            "drushim": "https://www.drushim.co.il/"}[site]
+    get(home)
+    SESSION.headers["Referer"] = home
+
+
 def search_site(site, query, log):
     cfg = SITES[site]
+    warm_up(site)
     url = cfg["search"](query)
     r = get(url)
     if r is None or r.status_code != 200:
