@@ -25,7 +25,7 @@ UA = ("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
 SESSION = requests.Session()
 SESSION.headers.update({"User-Agent": UA, "Accept-Language": "he-IL,he;q=0.9,en;q=0.8"})
 
-MAX_JOB_PAGES = 150   # per run, across all sites
+MAX_JOB_PAGES = 220   # per run, across all sites
 TEXT_LIMIT = 3500     # characters kept from each job page
 SEEN_DAYS = 45        # forget keys after this many days
 
@@ -78,6 +78,10 @@ def search_site(site, query, log):
         log.append(f"{site} '{query}': search failed ({getattr(r, 'status_code', 'no response')})")
         return []
     soup = BeautifulSoup(r.text, "html.parser")
+    if site == "jobmaster" and not cfg["key_re"].search(r.text):
+        DATA.mkdir(exist_ok=True)
+        (DATA / "debug-jobmaster.html").write_text(r.text[:60000], encoding="utf-8")
+        log.append(f"jobmaster debug: status {r.status_code}, final url {r.url}, len {len(r.text)}")
     found = {}
     for a in soup.find_all("a", href=True):
         m = cfg["key_re"].search(a["href"])
@@ -115,7 +119,9 @@ def main():
                         entry["people"].append(person)
                 time.sleep(random.uniform(1.0, 2.0))
 
-    new = [c for k, c in candidates.items() if k not in seen]
+    relevant = re.compile(CONFIG["titleFilter"], re.I)
+    new = [c for k, c in candidates.items() if k not in seen and (not c["listTitle"] or relevant.search(c["listTitle"]))]
+    log.append(f"after title filter: {len(new)} new of {len(candidates)}")
     jobs = []
     for c in new[:MAX_JOB_PAGES]:
         r = get(c["url"])
