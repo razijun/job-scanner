@@ -1,0 +1,12 @@
+{
+  "product": ["סטודנט ניהול מוצר", "סטודנט מוצר", "Product Analyst", "אנליסט מוצר", "Product Student", "Junior Product Manager"],
+  "ba": ["אנליסט מערכות סטודנט", "סטודנט אנליסט מערכות", "Business Analyst Student", "אנליסט מערכות מידע", "מנתח מערכות", "System Analyst Student"],
+  "om": ["ארגון ושיטות", "סטודנט ייעול תהליכים", "Operational Excellence", "סטודנט שיפור תהליכים", "Process Improvement Student"],
+  "prodops": ["Product Operations", "Business Operations Student", "BizOps", "Operations Analyst Student", "סטודנט אופרציה"],
+  "ai": ["AI Evaluation", "AI Enablement", "AI Operations", "AI Trainer", "סטודנט AI", "בינה מלאכותית סטודנט", "AI Student"],
+  "data": ["סטודנט BI", "Data Analyst Student", "סטודנט אנליסט נתונים", "BI Student", "אנליסט דאטה סטודנט"],
+  "ux": ["UX Research", "UX Researcher Student", "חוקר משתמשים", "סטודנט חוויית משתמש", "UX Student"],
+  "pmo": ["PMO סטודנט", "Junior PMO", "Program Manager Student", "סטודנט ניהול פרויקטים", "Project Coordinator Student"],
+  "cs": ["Customer Success Student", "Customer Success", "סטודנט הצלחת לקוחות", "Customer Success Associate", "Onboarding Specialist Student"],
+  "research": ["Student Researcher", "Research Student", "סטודנט מחקר", "Research Assistant Student"]
+}

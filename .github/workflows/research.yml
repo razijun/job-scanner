@@ -1,0 +1,29 @@
+name: research-scrape
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths: ["research.py", "research_queries.json", ".github/workflows/research.yml"]
+permissions:
+  contents: write
+concurrency:
+  group: daily-scan
+  cancel-in-progress: false
+jobs:
+  research:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install -r requirements.txt
+      - run: python research.py
+      - run: |
+          git config user.name "job-scanner-bot"
+          git config user.email "job-scanner-bot@users.noreply.github.com"
+          git add data/research.json
+          git diff --cached --quiet || git commit -m "research scrape $(date -u +%F)"
+          git pull --rebase
+          git push
