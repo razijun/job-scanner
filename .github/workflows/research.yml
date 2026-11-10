@@ -3,7 +3,7 @@ on:
   workflow_dispatch:
   push:
     branches: [main]
-    paths: ["linkedin_research.py"]
+    paths: ["linkedin_more.py"]
 permissions:
   contents: write
 concurrency:
@@ -19,7 +19,7 @@ jobs:
         with:
           python-version: "3.12"
       - run: pip install -r requirements.txt
-      - run: python linkedin_research.py
+      - run: python linkedin_more.py
       - run: |
           git config user.name "job-scanner-bot"
           git config user.email "job-scanner-bot@users.noreply.github.com"
