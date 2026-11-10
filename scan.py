@@ -1,7 +1,7 @@
 """Daily job-board scraper for the job scanner.
 
-Runs on GitHub Actions (open internet), reads the search pages of JobMaster,
-AllJobs and Drushim, opens every new listing and stores its text in
+Runs on GitHub Actions (open internet), reads the search pages of AllJobs and
+Drushim (JobMaster hides results from datacenter IPs, so it stays in the Chrome scan), opens every new listing and stores its text in
 data/latest.json. The Claude scan task reads that file and does the matching.
 No personal data is stored here: only public job ads and the search terms.
 """
