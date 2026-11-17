@@ -1,0 +1,25 @@
+name: link-check
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths: ["check_urls.json", "check_links.py"]
+permissions:
+  contents: write
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install -r requirements.txt
+      - run: python check_links.py
+      - run: |
+          git config user.name "job-scanner-bot"
+          git config user.email "job-scanner-bot@users.noreply.github.com"
+          git add data/linkcheck.json
+          git commit -m "link check" || exit 0
+          git pull --rebase && git push
