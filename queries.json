@@ -13,13 +13,23 @@
         "סטודנט רפאל",
         "סטודנט התעשייה האווירית",
         "סטודנט אלביט",
-        "משרת סטודנט משרד ממשלתי"
+        "משרת סטודנט משרד ממשלתי",
+        "GTM student",
+        "RevOps student",
+        "Sales Operations student",
+        "Product Marketing student",
+        "BizOps student"
       ],
       "drushim": [
         "סטודנט ניהול מוצר",
         "סטודנט תעשייה וניהול",
         "סטודנט ארגון ושיטות",
-        "סטודנט מערכות מידע"
+        "סטודנט מערכות מידע",
+        "GTM student",
+        "RevOps student",
+        "Sales Operations student",
+        "Product Marketing student",
+        "BizOps student"
       ]
     },
     "neta": {
