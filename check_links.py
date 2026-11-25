@@ -14,7 +14,7 @@ for key, url in json.loads(open("check_urls.json", encoding="utf-8").read()).ite
         txt = re.sub(r"\s+", " ", soup.get_text(" ")).strip()
         rec["title"] = (soup.title.string or "").strip()[:150] if soup.title else ""
         rec["len"] = len(txt)
-        rec["head"] = txt[:400]
+        rec["head"] = txt[:6000]
         rec["closed"] = bool(re.search(r"No longer accepting applications|המשרה אינה פעילה|המשרה לא נמצאה|משרה זו אינה|הוסרה|לא קיימת|not found|expired", txt, re.I))
     out.append(rec)
     time.sleep(5 if "linkedin" in target else 1.5)
